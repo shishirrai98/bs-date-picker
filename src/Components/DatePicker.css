@@ -1,0 +1,227 @@
+/* Reset margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Base body styling */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Date picker container styling */
+.date-picker {
+    position: relative;
+    width: 100%;
+    max-width: 250px;
+    margin: 20px auto;
+}
+
+/* Input field styling */
+.date-picker input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* Calendar container styling */
+.calendar {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    /*width: 100%;*/
+    /*max-width: 300px; !* Maximum width for better responsiveness *!*/
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+/* Header styling for the calendar including navigation and Today button */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f1f1f1;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.calendar-header span {
+    flex-grow: 1;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.calendar-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    width: 20px; /* Ensure buttons are the same size */
+    padding: 5px;
+}
+
+.calendar-header button:hover {
+    background: #ddd; /* Add hover effect for buttons */
+    border-radius: 50%;
+}
+
+/* Dropdown for year and month selection */
+.calendar-header select {
+    margin: 0 5px;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.calendar-header select:hover {
+    border-color: #007bff;
+}
+
+/* Styling for the "Today" button */
+.calendar-header .today-button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+.calendar-header .today-button:hover {
+    background: #0056b3;
+}
+
+/* Body of the calendar */
+.calendar-body {
+    padding: 8px;
+}
+
+/* Styling for the day headers and days grid */
+.calendar-days-header, .calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.calendar-days-header {
+    font-size: 0.6rem;
+}
+
+/* Common styling for weekdays and days */
+.weekday, .day, .empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.9rem;
+}
+
+/* Styling for weekday headers */
+.weekday {
+    font-weight: bold;
+}
+
+/* Weekend days styling */
+.weekend {
+    color: red;
+}
+
+/* Day hover effect */
+.day:hover {
+    background: #f1f1f1;
+}
+
+/* Styling for selected day */
+.day.selected {
+    background: #007bff;
+    color: #fff;
+}
+
+/* Styling for today's date with indicator */
+.day.today {
+    background: #f0f8ff;
+    position: relative;
+}
+
+.day.today .today-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+}
+
+/* Hide empty cells but keep them in the layout */
+.empty {
+    visibility: hidden;
+}
+
+/* Responsive adjustments for medium screens */
+@media (max-width: 600px) {
+    .calendar-header span {
+        font-size: 0.9rem;
+    }
+
+    .calendar-header button {
+        font-size: 14px;
+        width: 18px; /* Adjust button size */
+    }
+
+    .calendar-days-header {
+        font-size: 0.7rem;
+    }
+
+    .weekday, .day, .empty {
+        font-size: 0.8rem;
+        padding: 4px;
+    }
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 400px) {
+    .calendar {
+        left: -10px;
+        width: calc(100% + 20px); /* Extend calendar width to fill screen */
+    }
+
+    .calendar-header span {
+        font-size: 0.8rem;
+    }
+
+    .calendar-header button {
+        font-size: 12px;
+        width: 16px; /* Further adjust button size */
+    }
+
+    .calendar-header .today-button {
+        font-size: 0.8rem;
+        padding: 4px 8px; /* Adjust padding for smaller screens */
+    }
+
+    .calendar-days-header, .calendar-days {
+        grid-template-columns: repeat(7, 1fr); /* Keep 7 columns for days */
+    }
+
+    .weekday, .day, .empty {
+        font-size: 0.7rem;
+        padding: 3px;
+    }
+}
