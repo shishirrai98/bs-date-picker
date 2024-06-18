@@ -64,12 +64,14 @@ body {
     border: none;
     cursor: pointer;
     font-size: 16px;
-    width: 20px; /* Ensure buttons are the same size */
+    width: 20px;
+    /* Ensure buttons are the same size */
     padding: 5px;
 }
 
 .calendar-header button:hover {
-    background: #ddd; /* Add hover effect for buttons */
+    background: #ddd;
+    /* Add hover effect for buttons */
     border-radius: 50%;
 }
 
@@ -110,7 +112,8 @@ body {
 }
 
 /* Styling for the day headers and days grid */
-.calendar-days-header, .calendar-days {
+.calendar-days-header,
+.calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 2px;
@@ -121,7 +124,9 @@ body {
 }
 
 /* Common styling for weekdays and days */
-.weekday, .day, .empty {
+.weekday,
+.day,
+.empty {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -182,14 +187,17 @@ body {
 
     .calendar-header button {
         font-size: 14px;
-        width: 18px; /* Adjust button size */
+        width: 18px;
+        /* Adjust button size */
     }
 
     .calendar-days-header {
         font-size: 0.7rem;
     }
 
-    .weekday, .day, .empty {
+    .weekday,
+    .day,
+    .empty {
         font-size: 0.8rem;
         padding: 4px;
     }
@@ -199,7 +207,8 @@ body {
 @media (max-width: 400px) {
     .calendar {
         left: -10px;
-        width: calc(100% + 20px); /* Extend calendar width to fill screen */
+        width: calc(100% + 20px);
+        /* Extend calendar width to fill screen */
     }
 
     .calendar-header span {
@@ -208,19 +217,25 @@ body {
 
     .calendar-header button {
         font-size: 12px;
-        width: 16px; /* Further adjust button size */
+        width: 16px;
+        /* Further adjust button size */
     }
 
     .calendar-header .today-button {
         font-size: 0.8rem;
-        padding: 4px 8px; /* Adjust padding for smaller screens */
+        padding: 4px 8px;
+        /* Adjust padding for smaller screens */
     }
 
-    .calendar-days-header, .calendar-days {
-        grid-template-columns: repeat(7, 1fr); /* Keep 7 columns for days */
+    .calendar-days-header,
+    .calendar-days {
+        grid-template-columns: repeat(7, 1fr);
+        /* Keep 7 columns for days */
     }
 
-    .weekday, .day, .empty {
+    .weekday,
+    .day,
+    .empty {
         font-size: 0.7rem;
         padding: 3px;
     }

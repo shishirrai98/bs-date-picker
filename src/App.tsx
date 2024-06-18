@@ -1,12 +1,11 @@
-import DatePicker from "./Components/DatePicker.tsx";
+import DatePicker from "./components/date-picker";
 
 function App() {
-
-    return (
-        <>
-            <DatePicker language="en"/>
-        </>
-    )
+  return (
+    <div className="date-picker">
+      <DatePicker language="en" />
+    </div>
+  );
 }
 
-export default App
+export default App;

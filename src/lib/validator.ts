@@ -1,4 +1,4 @@
-import Config from "../Config/Config.tsx";
+import Config from "./config.ts";
 
 
 export default class Validator {
