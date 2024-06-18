@@ -110,7 +110,6 @@
   
   .calendar {
     position: absolute;
-    top: 50px;
     left: 0;
     background: var(--main-bg-color);
     border: 1px solid var(--main-border-color);
