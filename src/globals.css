@@ -150,7 +150,6 @@
   }
   
   .calendar-header select {
-    margin: 0 5px;
     padding: 5px;
     cursor: pointer;
     border: 1px solid var(--main-border-color);
