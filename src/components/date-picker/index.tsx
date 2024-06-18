@@ -8,17 +8,28 @@ import { useDatePicker } from "../../hooks/use-date-picker";
 const DatePicker: React.FC<{
   startWeekDay?: number;
   weekendDays?: number[];
-  language?: "en" | "ne";
+  language: "en" | "ne";
+  inputClassName?: string;
+  placeholder?: string;
+  label?: string;
+  theme?: string;
 }> = (props) => {
   return (
     <DatePickerProvider {...props}>
-      <DatePickerInput />
-      <DatePickerCalendar />
+      {props.label && <label>{props.label}</label>}
+      <DatePickerInput
+        inputClassName={props.inputClassName}
+        placeholder={props.placeholder}
+      />
+      <DatePickerCalendar theme={props.theme} />
     </DatePickerProvider>
   );
 };
 
-const DatePickerInput: React.FC = () => {
+const DatePickerInput: React.FC<{
+  inputClassName?: string;
+  placeholder?: string;
+}> = ({ inputClassName, placeholder }) => {
   const { selectedDate, showCalendar, setShowCalendar, language } =
     useDatePicker();
   const months = language === "ne" ? NEPALI_MONTHS : ENGLISH_MONTHS;
@@ -26,6 +37,7 @@ const DatePickerInput: React.FC = () => {
   return (
     <input
       type="text"
+      className={inputClassName}
       value={
         selectedDate
           ? `${months[selectedDate.month - 1]} ${changeFontToLanguage(
@@ -34,14 +46,17 @@ const DatePickerInput: React.FC = () => {
             )}, ${changeFontToLanguage(String(selectedDate.year), language)}`
           : ""
       }
-      placeholder={language === "ne" ? "मिति चयन गर्नुहोस्" : "Select a date"}
+      placeholder={
+        placeholder ||
+        (language === "ne" ? "मिति चयन गर्नुहोस्" : "Select a date")
+      }
       onClick={() => setShowCalendar(!showCalendar)}
       readOnly
     />
   );
 };
 
-const DatePickerCalendar: React.FC = () => {
+const DatePickerCalendar: React.FC<{ theme?: string }> = ({ theme }) => {
   const {
     showCalendar,
     handlePrevMonth,
@@ -60,7 +75,7 @@ const DatePickerCalendar: React.FC = () => {
   if (!showCalendar) return null;
 
   return (
-    <div className="calendar">
+    <div className={`calendar ${theme}`}>
       <div className="calendar-header">
         <button onClick={handlePrevMonth}>&lt;</button>
         <select value={currentBSDate.month} onChange={handleMonthChange}>

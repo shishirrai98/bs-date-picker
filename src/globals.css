@@ -1,132 +1,202 @@
-/* Reset margin and padding for all elements */
-* {
+/* styles.css */
+:root {
+    --main-bg-color: #fff;
+    --main-border-color: #ccc;
+    --main-text-color: #000;
+    --main-hover-bg-color: #f1f1f1;
+    --main-selected-bg-color: #007bff;
+    --main-selected-text-color: #fff;
+    --main-today-indicator-color: red;
+    --main-header-bg-color: #f1f1f1;
+    --main-header-border-color: #ccc;
+    --main-today-button-bg-color: #007bff;
+    --main-today-button-hover-bg-color: #0056b3;
+  }
+  
+  .red-theme {
+    --main-bg-color: #fff0f0;
+    --main-border-color: #f08080;
+    --main-text-color: #b22222;
+    --main-hover-bg-color: #ffcccc;
+    --main-selected-bg-color: #ff0000;
+    --main-selected-text-color: #fff;
+    --main-today-indicator-color: darkred;
+    --main-header-bg-color: #ffcccc;
+    --main-header-border-color: #f08080;
+    --main-today-button-bg-color: #ff0000;
+    --main-today-button-hover-bg-color: #b22222;
+  }
+  
+  .green-theme {
+    --main-bg-color: #f0fff0;
+    --main-border-color: #90ee90;
+    --main-text-color: #006400;
+    --main-hover-bg-color: #ccffcc;
+    --main-selected-bg-color: #008000;
+    --main-selected-text-color: #fff;
+    --main-today-indicator-color: darkgreen;
+    --main-header-bg-color: #ccffcc;
+    --main-header-border-color: #90ee90;
+    --main-today-button-bg-color: #008000;
+    --main-today-button-hover-bg-color: #006400;
+  }
+  
+  .blue-theme {
+    --main-bg-color: #f0f8ff;
+    --main-border-color: #add8e6;
+    --main-text-color: #00008b;
+    --main-hover-bg-color: #b0e0e6;
+    --main-selected-bg-color: #0000ff;
+    --main-selected-text-color: #fff;
+    --main-today-indicator-color: darkblue;
+    --main-header-bg-color: #b0e0e6;
+    --main-header-border-color: #add8e6;
+    --main-today-button-bg-color: #0000ff;
+    --main-today-button-hover-bg-color: #00008b;
+  }
+  
+  .dark-theme {
+    --main-bg-color: #2e2e2e;
+    --main-border-color: #555;
+    --main-text-color: #ddd;
+    --main-hover-bg-color: #444;
+    --main-selected-bg-color: #007bff;
+    --main-selected-text-color: #fff;
+    --main-today-indicator-color: #ff4500;
+    --main-header-bg-color: #444;
+    --main-header-border-color: #555;
+    --main-today-button-bg-color: #007bff;
+    --main-today-button-hover-bg-color: #0056b3;
+  }
+  
+  /* General styles that use the variables */
+  * {
     margin: 0;
     padding: 0;
-}
-
-/* Base body styling */
-body {
+  }
+  
+  body {
     font-family: Arial, sans-serif;
-}
-
-/* Date picker container styling */
-.date-picker {
+  }
+  
+  .date-picker {
     position: relative;
     width: 100%;
     max-width: 250px;
     margin: 20px auto;
-}
-
-/* Input field styling */
-.date-picker input {
-    width: 100%;
+  }
+  
+  .date-picker label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .date-picker input {
     padding: 10px;
-    border: 1px solid #ccc;
+    font-size: 14px;
+    border: 1px solid var(--main-border-color);
     border-radius: 4px;
-    cursor: pointer;
+    width: 100%;
     box-sizing: border-box;
-}
-
-/* Calendar container styling */
-.calendar {
+  }
+  
+  .date-picker input:focus {
+    outline: none;
+    border-color: var(--main-selected-bg-color);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  }
+  
+  .calendar {
     position: absolute;
     top: 50px;
     left: 0;
-    /*width: 100%;*/
-    /*max-width: 300px; !* Maximum width for better responsiveness *!*/
-    background: #fff;
-    border: 1px solid #ccc;
+    background: var(--main-bg-color);
+    border: 1px solid var(--main-border-color);
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
     box-sizing: border-box;
-}
-
-/* Header styling for the calendar including navigation and Today button */
-.calendar-header {
+  }
+  
+  .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background: #f1f1f1;
-    border-bottom: 1px solid #ccc;
+    background: var(--main-header-bg-color);
+    border-bottom: 1px solid var(--main-header-border-color);
     text-align: center;
-}
-
-.calendar-header span {
+  }
+  
+  .calendar-header span {
     flex-grow: 1;
     font-size: 1rem;
     text-align: center;
-}
-
-.calendar-header button {
+  }
+  
+  .calendar-header button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 16px;
     width: 20px;
-    /* Ensure buttons are the same size */
     padding: 5px;
-}
-
-.calendar-header button:hover {
-    background: #ddd;
-    /* Add hover effect for buttons */
+  }
+  
+  .calendar-header button:hover {
+    background: var(--main-hover-bg-color);
     border-radius: 50%;
-}
-
-/* Dropdown for year and month selection */
-.calendar-header select {
+  }
+  
+  .calendar-header select {
     margin: 0 5px;
     padding: 5px;
     cursor: pointer;
-    border: 1px solid #ccc;
+    border: 1px solid var(--main-border-color);
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--main-bg-color);
     transition: border-color 0.3s ease;
-}
-
-.calendar-header select:hover {
-    border-color: #007bff;
-}
-
-/* Styling for the "Today" button */
-.calendar-header .today-button {
-    background: #007bff;
-    color: #fff;
+  }
+  
+  .calendar-header select:hover {
+    border-color: var(--main-selected-bg-color);
+  }
+  
+  .calendar-header .today-button {
+    background: var(--main-today-button-bg-color);
+    color: var(--main-selected-text-color);
     border: none;
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
     font-size: 0.9rem;
     margin-left: 10px;
-}
-
-.calendar-header .today-button:hover {
-    background: #0056b3;
-}
-
-/* Body of the calendar */
-.calendar-body {
+  }
+  
+  .calendar-header .today-button:hover {
+    background: var(--main-today-button-hover-bg-color);
+  }
+  
+  .calendar-body {
     padding: 8px;
-}
-
-/* Styling for the day headers and days grid */
-.calendar-days-header,
-.calendar-days {
+  }
+  
+  .calendar-days-header,
+  .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 2px;
-}
-
-.calendar-days-header {
+  }
+  
+  .calendar-days-header {
     font-size: 0.6rem;
-}
-
-/* Common styling for weekdays and days */
-.weekday,
-.day,
-.empty {
+  }
+  
+  .weekday,
+  .day,
+  .empty {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -135,108 +205,96 @@ body {
     cursor: pointer;
     user-select: none;
     font-size: 0.9rem;
-}
-
-/* Styling for weekday headers */
-.weekday {
+  }
+  
+  .weekday {
     font-weight: bold;
-}
-
-/* Weekend days styling */
-.weekend {
+  }
+  
+  .weekend {
     color: red;
-}
-
-/* Day hover effect */
-.day:hover {
-    background: #f1f1f1;
-}
-
-/* Styling for selected day */
-.day.selected {
-    background: #007bff;
-    color: #fff;
-}
-
-/* Styling for today's date with indicator */
-.day.today {
+  }
+  
+  .day:hover {
+    background: var(--main-hover-bg-color);
+  }
+  
+  .day.selected {
+    background: var(--main-selected-bg-color);
+    color: var(--main-selected-text-color);
+  }
+  
+  .day.today {
     background: #f0f8ff;
     position: relative;
-}
-
-.day.today .today-indicator {
+  }
+  
+  .day.today .today-indicator {
     position: absolute;
     top: 5px;
     right: 5px;
     width: 8px;
     height: 8px;
-    background: red;
+    background: var(--main-today-indicator-color);
     border-radius: 50%;
-}
-
-/* Hide empty cells but keep them in the layout */
-.empty {
+  }
+  
+  .empty {
     visibility: hidden;
-}
-
-/* Responsive adjustments for medium screens */
-@media (max-width: 600px) {
+  }
+  
+  @media (max-width: 600px) {
     .calendar-header span {
-        font-size: 0.9rem;
+      font-size: 0.9rem;
     }
-
+  
     .calendar-header button {
-        font-size: 14px;
-        width: 18px;
-        /* Adjust button size */
+      font-size: 14px;
+      width: 18px;
     }
-
+  
     .calendar-days-header {
-        font-size: 0.7rem;
+      font-size: 0.7rem;
     }
-
+  
     .weekday,
     .day,
     .empty {
-        font-size: 0.8rem;
-        padding: 4px;
+      font-size: 0.8rem;
+      padding: 4px;
     }
-}
-
-/* Responsive adjustments for small screens */
-@media (max-width: 400px) {
+  }
+  
+  @media (max-width: 400px) {
     .calendar {
-        left: -10px;
-        width: calc(100% + 20px);
-        /* Extend calendar width to fill screen */
+      left: -10px;
+      width: calc(100% + 20px);
     }
-
+  
     .calendar-header span {
-        font-size: 0.8rem;
+      font-size: 0.8rem;
     }
-
+  
     .calendar-header button {
-        font-size: 12px;
-        width: 16px;
-        /* Further adjust button size */
+      font-size: 12px;
+      width: 16px;
     }
-
+  
     .calendar-header .today-button {
-        font-size: 0.8rem;
-        padding: 4px 8px;
-        /* Adjust padding for smaller screens */
+      font-size: 0.8rem;
+      padding: 4px 8px;
     }
-
+  
     .calendar-days-header,
     .calendar-days {
-        grid-template-columns: repeat(7, 1fr);
-        /* Keep 7 columns for days */
+      grid-template-columns: repeat(7, 1fr);
     }
-
+  
     .weekday,
     .day,
     .empty {
-        font-size: 0.7rem;
-        padding: 3px;
+      font-size: 0.7rem;
+      padding: 3px;
     }
-}
+  }
+  
