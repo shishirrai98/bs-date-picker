@@ -83,7 +83,7 @@ export const DatePickerProvider: React.FC<{
     [currentBSDate]
   );
 
-  const handlePrevMonth = () => {
+  const handlePrevMonth = useCallback(() => {
     setCurrentBSDate((prevDate) => {
       let newMonth = prevDate.month - 1;
       let newYear = prevDate.year;
@@ -99,9 +99,9 @@ export const DatePickerProvider: React.FC<{
         day: 1,
       };
     });
-  };
+  }, []);
 
-  const handleNextMonth = () => {
+  const handleNextMonth = useCallback(() => {
     setCurrentBSDate((prevDate) => {
       let newMonth = prevDate.month + 1;
       let newYear = prevDate.year;
@@ -117,27 +117,33 @@ export const DatePickerProvider: React.FC<{
         day: 1,
       };
     });
-  };
+  }, []);
 
-  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newYear = parseInt(event.target.value, 10);
-    setCurrentBSDate((prevDate) => ({
-      ...prevDate,
-      year: newYear,
-    }));
-  };
+  const handleYearChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const newYear = parseInt(event.target.value, 10);
+      setCurrentBSDate((prevDate) => ({
+        ...prevDate,
+        year: newYear,
+      }));
+    },
+    []
+  );
 
-  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newMonth = parseInt(event.target.value, 10);
-    setCurrentBSDate((prevDate) => ({
-      ...prevDate,
-      month: newMonth,
-    }));
-  };
+  const handleMonthChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const newMonth = parseInt(event.target.value, 10);
+      setCurrentBSDate((prevDate) => ({
+        ...prevDate,
+        month: newMonth,
+      }));
+    },
+    []
+  );
 
-  const handleTodayClick = () => {
+  const handleTodayClick = useCallback(() => {
     setCurrentBSDate(todayBSDate);
-  };
+  }, [todayBSDate]);
 
   const renderDays = useMemo(() => {
     return () => {
@@ -218,8 +224,6 @@ export const DatePickerProvider: React.FC<{
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  console.log("render");
 
   const getAdjustedDaysOfWeek = useMemo(() => {
     return () => {
