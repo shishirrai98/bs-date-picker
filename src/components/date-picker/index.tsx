@@ -1,9 +1,11 @@
 import React from "react";
-import { CiCalendar } from "react-icons/ci";
 import { NEPALI_MONTHS, ENGLISH_MONTHS } from "../../constants/dates";
 import { DatePickerProvider } from "../../contexts/date-picker-context";
 import { changeFontToLanguage } from "../../lib/utils";
 import { useDatePicker } from "../../hooks/use-date-picker";
+import PrevIcon from "../../icons/PrevIcon";
+import NextIcon from "../../icons/NextIcon";
+import CalenderIcon from "../../icons/CalenderIcon";
 
 const DatePicker: React.FC<{
   startWeekDay?: number;
@@ -77,7 +79,9 @@ const DatePickerCalendar: React.FC<{ theme?: string }> = ({ theme }) => {
   return (
     <div className={`calendar ${theme}`}>
       <div className="calendar-header">
-        <button onClick={handlePrevMonth}>&lt;</button>
+        <button onClick={handlePrevMonth}>
+          <PrevIcon />
+        </button>
         <select value={currentBSDate.month} onChange={handleMonthChange}>
           {months.map((month, index) => (
             <option key={index} value={index + 1}>
@@ -93,9 +97,11 @@ const DatePickerCalendar: React.FC<{ theme?: string }> = ({ theme }) => {
           ))}
         </select>
         <button onClick={handleTodayClick}>
-          <CiCalendar />
+          <CalenderIcon />
         </button>
-        <button onClick={handleNextMonth}>&gt;</button>
+        <button onClick={handleNextMonth}>
+          <NextIcon />
+        </button>
       </div>
       <div className="calendar-body">
         <div className="calendar-days-header">{getAdjustedDaysOfWeek()}</div>
