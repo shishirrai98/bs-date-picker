@@ -35,6 +35,7 @@ interface DatePickerContextProps {
   getAdjustedDaysOfWeek: () => JSX.Element[];
   language: "en" | "ne";
   yearRange: number[];
+  datePickerRef: React.RefObject<HTMLDivElement>;
 }
 
 export const DatePickerContext = createContext<
@@ -258,6 +259,7 @@ export const DatePickerProvider: React.FC<{
     getAdjustedDaysOfWeek,
     language,
     yearRange,
+    datePickerRef,
   }), [
     selectedDate,
     currentBSDate,
@@ -277,7 +279,7 @@ export const DatePickerProvider: React.FC<{
 
   return (
     <DatePickerContext.Provider value={contextValue}>
-      {children}
+      <div ref={datePickerRef}>{children}</div>
     </DatePickerContext.Provider>
   );
 };
