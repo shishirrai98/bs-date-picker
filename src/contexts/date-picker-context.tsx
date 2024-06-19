@@ -145,56 +145,54 @@ export const DatePickerProvider: React.FC<{
     setCurrentBSDate(todayBSDate);
   }, [todayBSDate]);
 
-  const renderDays = useMemo(() => {
-    return () => {
-      const days = [];
-      const firstDay = convertDate({
-        date: `${currentBSDate.year}-${currentBSDate.month}-01`,
-        to: "ad",
-      });
-      const firstDayOfMonth = moment([
-        firstDay.year,
-        firstDay.month - 1,
-        firstDay.day,
-      ]);
-      const adjustedFirstDay = (firstDayOfMonth.day() - startWeekDay + 7) % 7;
-      const monthDays = new DateClass().daysInBsMonth(
-        currentBSDate.year,
-        currentBSDate.month
+  const renderDays = useCallback(() => {
+    const days = [];
+    const firstDay = convertDate({
+      date: `${currentBSDate.year}-${currentBSDate.month}-01`,
+      to: "ad",
+    });
+    const firstDayOfMonth = moment([
+      firstDay.year,
+      firstDay.month - 1,
+      firstDay.day,
+    ]);
+    const adjustedFirstDay = (firstDayOfMonth.day() - startWeekDay + 7) % 7;
+    const monthDays = new DateClass().daysInBsMonth(
+      currentBSDate.year,
+      currentBSDate.month
+    );
+
+    for (let i = 0; i < adjustedFirstDay; i++) {
+      days.push(<div key={`empty-${i}`} className="empty"></div>);
+    }
+
+    for (let day = 1; day <= monthDays; day++) {
+      const isSelected =
+        selectedDate &&
+        day === selectedDate.day &&
+        currentBSDate.month === selectedDate.month &&
+        currentBSDate.year === selectedDate.year;
+      const isToday =
+        day === todayBSDate.day &&
+        currentBSDate.month === todayBSDate.month &&
+        currentBSDate.year === todayBSDate.year;
+      const dayOfWeek = (adjustedFirstDay + day - 1) % 7;
+      const isWeekend = weekendDays.includes(dayOfWeek);
+
+      days.push(
+        <div
+          key={day}
+          className={`day ${isSelected ? "selected" : ""} ${
+            isToday ? "today" : ""
+          } ${isWeekend ? "weekend" : ""}`}
+          onClick={() => handleDateClick(day)}
+        >
+          {changeFontToLanguage(String(day), language)}
+          {isToday && <span className="today-indicator"></span>}
+        </div>
       );
-
-      for (let i = 0; i < adjustedFirstDay; i++) {
-        days.push(<div key={`empty-${i}`} className="empty"></div>);
-      }
-
-      for (let day = 1; day <= monthDays; day++) {
-        const isSelected =
-          selectedDate &&
-          day === selectedDate.day &&
-          currentBSDate.month === selectedDate.month &&
-          currentBSDate.year === selectedDate.year;
-        const isToday =
-          day === todayBSDate.day &&
-          currentBSDate.month === todayBSDate.month &&
-          currentBSDate.year === todayBSDate.year;
-        const dayOfWeek = (adjustedFirstDay + day - 1) % 7;
-        const isWeekend = weekendDays.includes(dayOfWeek);
-
-        days.push(
-          <div
-            key={day}
-            className={`day ${isSelected ? "selected" : ""} ${
-              isToday ? "today" : ""
-            } ${isWeekend ? "weekend" : ""}`}
-            onClick={() => handleDateClick(day)}
-          >
-            {changeFontToLanguage(String(day), language)}
-            {isToday && <span className="today-indicator"></span>}
-          </div>
-        );
-      }
-      return days;
-    };
+    }
+    return days;
   }, [
     convertDate,
     currentBSDate.year,
@@ -223,49 +221,62 @@ export const DatePickerProvider: React.FC<{
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [datePickerRef]);
 
-  const getAdjustedDaysOfWeek = useMemo(() => {
-    return () => {
-      const daysOfWeek = language === "ne" ? DAYS_OF_WEEK_NE : DAYS_OF_WEEK_EN;
-      const adjustedDays = [
-        ...daysOfWeek.slice(startWeekDay),
-        ...daysOfWeek.slice(0, startWeekDay),
-      ];
-      return adjustedDays.map((day, index) => {
-        const dayIndex = (startWeekDay + index) % 7;
-        const isWeekend = weekendDays.includes(dayIndex);
-        return (
-          <div key={day} className={`weekday ${isWeekend ? "weekend" : ""}`}>
-            {day}
-          </div>
-        );
-      });
-    };
+  const getAdjustedDaysOfWeek = useCallback(() => {
+    const daysOfWeek = language === "ne" ? DAYS_OF_WEEK_NE : DAYS_OF_WEEK_EN;
+    const adjustedDays = [
+      ...daysOfWeek.slice(startWeekDay),
+      ...daysOfWeek.slice(0, startWeekDay),
+    ];
+    return adjustedDays.map((day, index) => {
+      const dayIndex = (startWeekDay + index) % 7;
+      const isWeekend = weekendDays.includes(dayIndex);
+      return (
+        <div key={day} className={`weekday ${isWeekend ? "weekend" : ""}`}>
+          {day}
+        </div>
+      );
+    });
   }, [language, startWeekDay, weekendDays]);
 
+  const contextValue = useMemo(() => ({
+    selectedDate,
+    setSelectedDate,
+    currentBSDate,
+    setCurrentBSDate,
+    todayBSDate,
+    showCalendar,
+    setShowCalendar,
+    handlePrevMonth,
+    handleNextMonth,
+    handleYearChange,
+    handleMonthChange,
+    handleTodayClick,
+    handleDateClick,
+    renderDays,
+    getAdjustedDaysOfWeek,
+    language,
+    yearRange,
+  }), [
+    selectedDate,
+    currentBSDate,
+    todayBSDate,
+    showCalendar,
+    handlePrevMonth,
+    handleNextMonth,
+    handleYearChange,
+    handleMonthChange,
+    handleTodayClick,
+    handleDateClick,
+    renderDays,
+    getAdjustedDaysOfWeek,
+    language,
+    yearRange,
+  ]);
+
   return (
-    <DatePickerContext.Provider
-      value={{
-        selectedDate,
-        setSelectedDate,
-        currentBSDate,
-        setCurrentBSDate,
-        todayBSDate,
-        showCalendar,
-        setShowCalendar,
-        handlePrevMonth,
-        handleNextMonth,
-        handleYearChange,
-        handleMonthChange,
-        handleTodayClick,
-        handleDateClick,
-        renderDays,
-        getAdjustedDaysOfWeek,
-        language,
-        yearRange,
-      }}
-    >
+    <DatePickerContext.Provider value={contextValue}>
       {children}
     </DatePickerContext.Provider>
   );

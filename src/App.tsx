@@ -7,7 +7,7 @@ function App() {
         language="en"
         inputClassName={""}
         label="Select Birth Date"
-        theme="red-theme"
+        theme="blue-theme"
       />
     </div>
   );
