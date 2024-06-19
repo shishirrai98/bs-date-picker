@@ -47,8 +47,16 @@ export const DatePickerProvider: React.FC<{
   startWeekDay?: number;
   weekendDays?: number[];
   language?: "en" | "ne";
-  onChange?: (date: { year: number; month: number; day: number } | null) => void;
-}> = ({ children, startWeekDay = 0, weekendDays = [6], language = "en", onChange }) => {
+  onChange?: (
+    date: { year: number; month: number; day: number } | null
+  ) => void;
+}> = ({
+  children,
+  startWeekDay = 0,
+  weekendDays = [6],
+  language = "en",
+  onChange,
+}) => {
   const { convertDate } = useDate();
   const todayBSDate = convertDate({
     date: new Date().toISOString().split("T")[0],
@@ -152,16 +160,18 @@ export const DatePickerProvider: React.FC<{
   }, [todayBSDate]);
 
   const renderDays = useCallback(() => {
-    const days = [];
+    const days: JSX.Element[] = [];
     const firstDay = convertDate({
       date: `${currentBSDate.year}-${currentBSDate.month}-01`,
       to: "ad",
     });
+
     const firstDayOfMonth = moment([
       firstDay.year,
       firstDay.month - 1,
       firstDay.day,
     ]);
+    
     const adjustedFirstDay = (firstDayOfMonth.day() - startWeekDay + 7) % 7;
     const monthDays = new DateClass().daysInBsMonth(
       currentBSDate.year,
@@ -246,41 +256,44 @@ export const DatePickerProvider: React.FC<{
     });
   }, [language, startWeekDay, weekendDays]);
 
-  const contextValue = useMemo(() => ({
-    selectedDate,
-    setSelectedDate,
-    currentBSDate,
-    setCurrentBSDate,
-    todayBSDate,
-    showCalendar,
-    setShowCalendar,
-    handlePrevMonth,
-    handleNextMonth,
-    handleYearChange,
-    handleMonthChange,
-    handleTodayClick,
-    handleDateClick,
-    renderDays,
-    getAdjustedDaysOfWeek,
-    language,
-    yearRange,
-    datePickerRef,
-  }), [
-    selectedDate,
-    currentBSDate,
-    todayBSDate,
-    showCalendar,
-    language,
-    yearRange,
-    handlePrevMonth,
-    handleNextMonth,
-    handleYearChange,
-    handleMonthChange,
-    handleTodayClick,
-    handleDateClick,
-    renderDays,
-    getAdjustedDaysOfWeek,
-  ]);
+  const contextValue = useMemo(
+    () => ({
+      selectedDate,
+      setSelectedDate,
+      currentBSDate,
+      setCurrentBSDate,
+      todayBSDate,
+      showCalendar,
+      setShowCalendar,
+      handlePrevMonth,
+      handleNextMonth,
+      handleYearChange,
+      handleMonthChange,
+      handleTodayClick,
+      handleDateClick,
+      renderDays,
+      getAdjustedDaysOfWeek,
+      language,
+      yearRange,
+      datePickerRef,
+    }),
+    [
+      selectedDate,
+      currentBSDate,
+      todayBSDate,
+      showCalendar,
+      language,
+      yearRange,
+      handlePrevMonth,
+      handleNextMonth,
+      handleYearChange,
+      handleMonthChange,
+      handleTodayClick,
+      handleDateClick,
+      renderDays,
+      getAdjustedDaysOfWeek,
+    ]
+  );
 
   return (
     <DatePickerContext.Provider value={contextValue}>
