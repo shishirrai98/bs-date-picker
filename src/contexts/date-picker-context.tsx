@@ -47,7 +47,8 @@ export const DatePickerProvider: React.FC<{
   startWeekDay?: number;
   weekendDays?: number[];
   language?: "en" | "ne";
-}> = ({ children, startWeekDay = 0, weekendDays = [6], language = "en" }) => {
+  onChange?: (date: { year: number; month: number; day: number } | null) => void;
+}> = ({ children, startWeekDay = 0, weekendDays = [6], language = "en", onChange }) => {
   const { convertDate } = useDate();
   const todayBSDate = convertDate({
     date: new Date().toISOString().split("T")[0],
@@ -74,14 +75,18 @@ export const DatePickerProvider: React.FC<{
 
   const handleDateClick = useCallback(
     (day: number) => {
-      setSelectedDate({
+      const newSelectedDate = {
         year: currentBSDate.year,
         month: currentBSDate.month,
         day,
-      });
+      };
+      setSelectedDate(newSelectedDate);
       setShowCalendar(false);
+      if (onChange) {
+        onChange(newSelectedDate);
+      }
     },
-    [currentBSDate]
+    [currentBSDate, onChange]
   );
 
   const handlePrevMonth = useCallback(() => {
@@ -265,6 +270,8 @@ export const DatePickerProvider: React.FC<{
     currentBSDate,
     todayBSDate,
     showCalendar,
+    language,
+    yearRange,
     handlePrevMonth,
     handleNextMonth,
     handleYearChange,
@@ -273,8 +280,6 @@ export const DatePickerProvider: React.FC<{
     handleDateClick,
     renderDays,
     getAdjustedDaysOfWeek,
-    language,
-    yearRange,
   ]);
 
   return (

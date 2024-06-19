@@ -12,6 +12,7 @@ const DatePicker: React.FC<{
   placeholder?: string;
   label?: string;
   theme?: string;
+  onChange?: (date: { year: number; month: number; day: number } | null) => void;
 }> = (props) => {
   return (
     <DatePickerProvider {...props}>
